@@ -10,18 +10,14 @@
 
 <body>
     <div id="app">
-        <input type="text" name="nombre" aria-placeholder="Ingresa tu nombre" v-model ="nombre">
-        <p>Tu nombre en Mayuscula es {{nombre | uppercase}}</p>
+        
         <form @submit.prevent="submit" action="" method="GET"> 
             <h2>¿Cuales son tus favoritos?</h2>
-            <input v-model="cursos" type="checkbox" id="vue" value="vue">
-            <label for="vue">curso de Vue.js</label>
-            <input v-model="cursos" type="checkbox" id="seo" value="seo">
-            <label for="seo">curso de seo</label>
-            <input v-model="cursos" type="checkbox" id="react" value="react">
-            <label for="react">curso de react</label> 
-            <input v-model="cursos" type="checkbox" id="redux" value="redux">
-            <label for="redux">curso de redux</label> 
+
+            <template v-for="curso in cursos">
+                <input v-model="cursosSelecionados" type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value">
+                <label v-bind:for="curso.value">{{curso.nombre}}</label>
+            </template>
             <button type="submit">Enviar</button>
 
         </form>
@@ -31,18 +27,22 @@
         let app = new Vue({
             el: '#app',
             data: {
-                nombre: '',
-                cursos:[]
-            },
-            filters: {
-                uppercase: function (str){
-                    return str.toUpperCase()
-                }
+                cursos:[
+                    {   nombre: 'curso de Vue.js',
+                        value:'vue'  },
+                    {   nombre:'curso de seo',
+                        value:'seo'  },
+                    {    nombre:'curso de react',
+                        value:'react' },
+                    {   nombre:'curso de redux',
+                        value:'redux' },
+                ],
+                cursosSelecionados: []
             },
             methods: {
                 submit: function(){
                     console.log('Se ejecuta metodo submit')
-                    console.log(this.cursos)
+                    console.log(this.cursosSelecionados)
                 }
             }
         })
