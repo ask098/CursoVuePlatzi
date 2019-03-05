@@ -10,18 +10,34 @@
 
 <body>
     <div id="app">
-        <button @click="contador++">Sumar 1</button>
-        <button @click="contador--">Restar 1</button>
-        El contador está en {{contador}}
+        <input type="text" name="nombre" aria-placeholder="Ingresa tu nombre" v-model ="nombre">
+        <p>Tu nombre en Mayuscula es {{nombre | uppercase}}</p>
+        <form action="" method="GET">
+            <h2>¿Cuales son tus favoritos?</h2>
+            <input name="cursos" type="checkbox" id="vue" value="vue">
+            <label for="vue">curso de Vue.js</label>
+            <input name="cursos" type="checkbox" id="seo" value="seo">
+            <label for="seo">curso de seo</label>
+            <input name="cursos" type="checkbox" id="react" value="react">
+            <label for="react">curso de react</label> 
+            <input name="cursos" type="checkbox" id="redux" value="redux">
+            <label for="redux">curso de redux</label> 
+            <button type="submit">Enviar</button>
+
+        </form>
     </div>
     <script src="./Curso Vue.js_files/vue"></script>
     <script type="text/javascript">
         let app = new Vue({
             el: '#app',
             data: {
-                contador: 0
+                nombre: ''
             },
-
+            filters: {
+                uppercase: function (str){
+                    return str.toUpperCase()
+                }
+            }
         })
     </script>
 </body>
