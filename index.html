@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>
             curso VueJs
         </title>
     </head>
     <body>
-<div id ="app">
-            <h1> {{titulo | uppercase }}</h1>
-            <h2> {{subtitulo | lowercase }}</h2>
-            <h3>{{texto | capitalize }}</h3>
-</div>
-        <script src="https://unpkg.com/vue"></script>
-        <script type="text/javascript">
-           let app = new Vue({
-             el: '#app',
-            data: {
-                titulo:'Estas en Platzi',
-                subtitulo: 'Estas viendo el curso de Vue.js',
-                texto: 'texto de prueba'
-                },
-            filters: {
-                uppercase: str => str.toUpperCase(),
-                lowercase: str=> str.toLowerCase(),
-                capitalize: str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-                }
-            })
-        </script>
+    <div id="app">
+        <button v-on:click="Sumar">Sumar 1</button>
+        <button v-on:click="Restar">Restar 1</button>
+        El contador está en {{contador}}
+    </div>
+    <script src="./Curso Vue.js_files/vue"></script>
+    <script type="text/javascript">
+        let app = new Vue({
+        el: '#app',
+        data: {
+            contador: 0
+        },
+     methods: {
+        Sumar () {
+         this.contador++
+       },
+        Restar () {
+         this.contador--
+       }
+     }
+    })
+    </script>
     </body>
 </html>
