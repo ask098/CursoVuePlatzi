@@ -12,15 +12,15 @@
     <div id="app">
         <input type="text" name="nombre" aria-placeholder="Ingresa tu nombre" v-model ="nombre">
         <p>Tu nombre en Mayuscula es {{nombre | uppercase}}</p>
-        <form action="" method="GET">
+        <form @submit.prevent="submit" action="" method="GET"> 
             <h2>¿Cuales son tus favoritos?</h2>
-            <input name="cursos" type="checkbox" id="vue" value="vue">
+            <input v-model="cursos" type="checkbox" id="vue" value="vue">
             <label for="vue">curso de Vue.js</label>
-            <input name="cursos" type="checkbox" id="seo" value="seo">
+            <input v-model="cursos" type="checkbox" id="seo" value="seo">
             <label for="seo">curso de seo</label>
-            <input name="cursos" type="checkbox" id="react" value="react">
+            <input v-model="cursos" type="checkbox" id="react" value="react">
             <label for="react">curso de react</label> 
-            <input name="cursos" type="checkbox" id="redux" value="redux">
+            <input v-model="cursos" type="checkbox" id="redux" value="redux">
             <label for="redux">curso de redux</label> 
             <button type="submit">Enviar</button>
 
@@ -31,11 +31,18 @@
         let app = new Vue({
             el: '#app',
             data: {
-                nombre: ''
+                nombre: '',
+                cursos:[]
             },
             filters: {
                 uppercase: function (str){
                     return str.toUpperCase()
+                }
+            },
+            methods: {
+                submit: function(){
+                    console.log('Se ejecuta metodo submit')
+                    console.log(this.cursos)
                 }
             }
         })
