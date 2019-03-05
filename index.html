@@ -21,15 +21,9 @@
                 texto: 'texto de prueba'
                 },
             filters: {
-                uppercase: function (str) {
-                    return str.toUpperCase()
-                    },
-                lowercase: function (str) {
-                    return str.toLowerCase()
-                    },
-                capitalize: function(str){
-                    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-                    }
+                uppercase: str => str.toUpperCase(),
+                lowercase: str=> str.toLowerCase(),
+                capitalize: str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
                 }
             })
         </script>
