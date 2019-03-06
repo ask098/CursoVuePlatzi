@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    <title>
-        curso VueJs
-    </title>
+  <title>Curso Vue.js</title>
 </head>
-
 <body>
-    <div id="app">
-        
-        <form @submit.prevent="submit" action="" method="GET"> 
-            <h2>¿Cuales son tus favoritos?</h2>
+  <div id="app">
+    <form @submit.prevent="submit" action="" method="get">
+      <h2>¿Cuáles son tus cursos favoritos?</h2>
+      <template v-for="curso in cursos">
+        <curso :curso="curso" @checked="selectCurso"></curso>  
+      </template>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
 
-            <template v-for="curso in cursos">
-                <curso :curso="curso" :cursosSelecionados="cursos-selecionados">
-                    
-                </curso>
-            </template>
-            <button type="submit">Enviar</button>
-
-        </form>
-    </div>
-    <script src="./Curso Vue.js_files/vue"></script>
-    <script type="text/javascript">
-     vue.component('curso',{
-        props: ['curso','cursosSelecionados'],
-        template: `
+  <script src="https://unpkg.com/vue"></script>
+  <script type="text/javascript">
+    Vue.component('curso', {
+      props: [ 'curso' ],
+      methods: {
+        onchange: function (ev) {
+          this.$emit('checked', this.curso.value, ev.target.checked)
+        }
+      },
+      template: `
         <div>
-            <input v-model="cursosSelecionados" type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value">
-            <label v-bind:for="curso.value">{{curso.nombre}}</label>
-        </div> 
-        `
+          <input type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value" @change="onchange">
+          <label v-bind:for="curso.value">{{ curso.nombre }}</label>
+        </div>
+      `
     })
-        let app = new Vue({
-            el: '#app',
-            data: {
-                cursos:[
-                    {   nombre: 'curso de Vue.js',
-                        value:'vue'  },
-                    {   nombre:'curso de seo',
-                        value:'seo'  },
-                    {    nombre:'curso de react',
-                        value:'react' },
-                    {   nombre:'curso de redux',
-                        value:'redux' },
-                ],
-                cursosSelecionados: []
-            },
-            methods: {
-                submit: function(){
-                    console.log('Se ejecuta metodo submit')
-                    console.log(this.cursosSelecionados)
-                }
-            }
-        })
-    </script>
-</body>
 
+    let app = new Vue({
+      el: '#app',
+      data: {
+        cursos: [
+          { nombre: 'Curso de Introducción a Vue.js', value: 'vue' },
+          { nombre: 'Curso de SEO', value: 'seo' },
+          { nombre: 'Curso React y Redux', value: 'react' },
+          { nombre: 'Curso de Growth Marketing', value: 'growth' }
+        ],
+        cursosSeleccionados: []
+      },
+      methods: {
+        submit: function () {
+          console.log('Se ejecuta el método submit')
+          console.log(this.cursosSeleccionados)
+        },
+        selectCurso: function (curso, checked) {
+          if (checked) {
+            this.cursosSeleccionados.push(curso)
+          } else {
+            let index = this.cursosSeleccionados.indexOf(curso)
+            this.cursosSeleccionados.splice(index, 1)
+          }
+        }
+      }
+    })
+  </script>
+</body>
 </html>
