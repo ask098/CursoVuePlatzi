@@ -3,10 +3,12 @@
     img(src='./assets/logo.png')
     h1 PlatziMusic
     ul
-      li(v-for="artist in artists") {{ artist.name }}
+      artist(v-for="artist in artists"
+      v-bind:artist="artist" v-bind:key="artist.mbid") 
 </template>
 
 <script>
+import Artist from './components/Artists.vue'
 import getArtists from './api'
 
 export default {
@@ -15,6 +17,9 @@ export default {
     return {
       artists: []
     }
+  },
+  components: {
+    Artist
   },
   mounted: function () {
     const self = this
