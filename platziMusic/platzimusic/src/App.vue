@@ -2,6 +2,8 @@
   #app
     img(src='./assets/logo.png')
     h1 PlatziMusic
+    select(v-model="selectedCountry")
+      option(v-for="country in countries" :value=" country.value") {{country.name}}
     ul
       artist(v-for="artist in artists"
       v-bind:artist="artist" v-bind:key="artist.mbid") 
@@ -15,18 +17,34 @@ export default {
   name: 'app',
   data () {
     return {
-      artists: []
+      artists: [],
+      countries: [
+        { name: 'Argentina', value: 'argentina'},
+        { name:  'Colombia', value: 'colombia'},
+        {name: 'España', value: 'spain'}
+      ],
+      selectedCountry: 'argentina'
     }
   },
   components: {
     Artist
   },
-  mounted: function () {
-    const self = this
-    getArtists()
-      .then(function (artists) {
-        self.artists = artists
+  methods: {
+    refreshArtist(){
+      const self = this
+      getArtists(this.selectedCountry)
+        .then(function (artists) {
+          self.artists = artists
       })
+    }
+  },
+  mounted: function () {
+    this.refreshArtist()
+  },
+  watch :{
+    selectedCountry: function(){
+      this.refreshArtist()
+    }
   }
 }
 </script>
