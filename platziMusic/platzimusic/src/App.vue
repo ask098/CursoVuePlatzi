@@ -3,21 +3,25 @@
     img(src='./assets/logo.png')
     h1 PlatziMusic
     ul
-      li(v-for="artist in artists")  {{ artist.name }}
+      li(v-for="artist in artists") {{ artist.name }}
 </template>
 
 <script>
+import getArtists from './api'
+
 export default {
   name: 'app',
   data () {
     return {
-      artists:[
-        { name: 'David Bowie' },
-        { name: 'Daft punk' },
-        { name: 'REd hot Chilli papers' },
-        { name: 'AC DC' },
-      ]
+      artists: []
     }
+  },
+  mounted: function () {
+    const self = this
+    getArtists()
+      .then(function (artists) {
+        self.artists = artists
+      })
   }
 }
 </script>
